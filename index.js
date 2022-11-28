@@ -1,23 +1,14 @@
-const path = require('path')
-const express = require('express')
-const cors = require('cors')
-const app = express()
+const express = require("express");
+const cors = require("cors");
+const api = require('./api')
 
-app.use(cors())
+const app = express();
 
-const PORT = process.env.PORT || 3000
+app.use(cors());
+app.use('/api', api)
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-  })
-
-app.get('/download', (req, res) => {
-    const file = path.resolve(__dirname, 'doc/测试文档.xlsx')
-    res.setHeader('Access-Control-Expose-Headers', 'Content-Disposition')
-    res.attachment(file)
-    res.sendFile(file)
-})
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`app listening on port ${PORT}`)
-})
+  console.log(`app listening on port ${PORT}`);
+});
